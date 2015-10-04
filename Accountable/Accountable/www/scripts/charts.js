@@ -11,17 +11,18 @@ var lineChart = function(){
 				labls.push(d[i].key)
 				vals.push(d[i])
 			}
-		});
-	var data1 = {
-	    labels: labls,
-	    datasets: [
-	        {
-	            data: vals
-	        }
-	    ]
-	};
 
-	var myLineChart = new Chart(ctx).Line(data1, {});
+			var data1 = {
+			    labels: labls,
+			    datasets: [
+			        {
+			            data: vals
+			        }
+			    ]
+			};
+			var myLineChart = new Chart(ctx).Line(data1, {});
+		});
+
 };
 
 var pieChart = function () {
@@ -30,13 +31,15 @@ var pieChart = function () {
 	var data2 = []
 	getExpenseCategoryWise(
 		function (err, d) {
+			console.log(d);
 			for (i in d){
 			data2.push({'value' : d[i].value,
-						'label' : d[i].key
+						'label' : d[i].key,
+						'color' : 'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')'
 					});
 			}
+			var myDoughnutChart = new Chart(ctx2).Doughnut(data2, {});
 	});
-	var myDoughnutChart = new Chart(ctx2).Doughnut(data2, {});
 };
 
 $('#stats1').on('shown', lineChart);
