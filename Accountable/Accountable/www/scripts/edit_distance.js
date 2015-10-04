@@ -63,9 +63,15 @@ var getSimilar = function(a, strings)
 {
   var min = 0.9 //THRESHOLD
   var id = -1
+  var name;
   for (var i=0; i< strings.length; i++)
   {
-      var temp = checkSimilarity(a, strings[i].fname + ' ' + strings[i].lname)
+      if (strings[i].collection == 'people') {
+          name = strings[i].fname + ' ' + strings[i].lname;
+      } else {
+          name = strings[i].name;
+      }
+      var temp = checkSimilarity(a, name);
     if (temp<min)
     {
       min = temp;

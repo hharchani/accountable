@@ -15,7 +15,10 @@ var parse = function(sentence, templates) {
     for (var i = 0; i < templates.length; i++) {
         var matches = templates[i].re.exec(sentence);
         if (matches) {
-            console.log(matches);
+            if ('person' in templates[i].variable) {
+                var per = matches[templates[i].variable['person']].toLocaleLowerCase();
+                if (per == 'i' || per == 'i ') continue;
+            }
             var data = {};
 
             for (var key in templates[i].static) {

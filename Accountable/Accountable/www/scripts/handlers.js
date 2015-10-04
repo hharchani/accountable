@@ -18,6 +18,7 @@ var handlePerson = function (data, field_name) {
     if (field_name in data) {
         if (!people) return;
         orig_string = data[field_name];
+        console.log(orig_string);
         data[field_name] = getSimilar(data[field_name], people)._id;
         if (data[field_name]) return;
     }
