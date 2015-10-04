@@ -49,7 +49,7 @@ var checkSimilarity = function(a, b)
   {
     min = 100
     for (var j=0;  j < b_words.length; j++) {
-      temp = getEditDistance(a_words[i], b_words[j]);
+      temp = getEditDistance(a_words[i].toLowerCase(), b_words[j].toLowerCase());
       temp /= (a_words[i].length + b_words[i].length)
       if (temp < min)
         min = temp
@@ -65,7 +65,7 @@ var getSimilar = function(a, strings)
   var id = -1
   for (var i=0; i< strings.length; i++)
   {
-    var temp = checkSimilarity(a, strings[i].name)
+      var temp = checkSimilarity(a, strings[i].fname + ' ' + strings[i].lname)
     if (temp<min)
     {
       min = temp;

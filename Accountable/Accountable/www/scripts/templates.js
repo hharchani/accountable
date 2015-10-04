@@ -45,7 +45,7 @@ var templates = [
         "handle": ["from", "to", "date"]
     },
     {
-        "pattern": "(?:i )?deposited (\\d+)(?: rupees| bucks)? to(?: a| an| the)? (.*)",
+        "pattern": "(?:i )?deposited (\\d+)(?: rupees| bucks)? (?:in|to)(?: a| an| the)? (.*)",
         "static": {
             "collection": "transfers"
         },
@@ -82,7 +82,7 @@ var templates = [
         "handle": ["account", "person", "date"]
     },
     {
-        "pattern": "(?:i )?borrowed/took (\\d+)(?: rupees| bucks)? from (.*)",
+        "pattern": "(?:i )?(?:borrowed|took|received) (\\d+)(?: rupees| bucks)? from (.*)",
         "static": {
             "collection": "settlements",
             "type": "took"
@@ -282,7 +282,7 @@ var templates = [
 
 
     {
-        "pattern": "(?:expense )?(?:a |an |the )?(.*)(?: for)? (\\d+)(?: rupees| bucks)?",
+        "pattern": "expense (?:a |an |the )?(.*)(?: for)? (\\d+)(?: rupees| bucks)?",
         "static": {
             "collection": "expenses"
         },
@@ -350,7 +350,7 @@ var templates = [
         "handle": ["category", "date", "account"]
     },
     {
-        "pattern": "(?:i )?(?:got|made|earned|recieved) (\\d+)(?: rupees| bucks)?(?:(?: for| as) (.*))?",
+        "pattern": "(?:i )?(?:got|made|earned|received) (\\d+)(?: rupees| bucks)?(?:(?: for| as) (.*))?",
         "static": {
             "collection": "income"
         },
@@ -361,7 +361,7 @@ var templates = [
         "handle": ["category", "date", "account"]
     },
     {
-        "pattern": "(?:i )?(?:got|made|earned|recieved)(?: my)? (.*) of (\\d+)(?: rupees| bucks)?",
+        "pattern": "(?:i )?(?:got|made|earned|received)(?: my)? (.*) of (\\d+)(?: rupees| bucks)?",
         "static": {
             "collection": "income"
         },

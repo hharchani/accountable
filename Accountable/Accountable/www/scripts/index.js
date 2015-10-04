@@ -19,9 +19,14 @@
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
         $(document)
-            .on( 'pause', onPause.bind( this ))
-            .on( 'resume', onResume.bind( this ));
-        
+            .on('pause', onPause.bind(this))
+            .on('resume', onResume.bind(this))
+            .on('onSMSArrive', function (e) {
+                var data = e.data;
+                smsList.push(data);
+                var divdata = $('div#data');
+                divdata.html(divdata.html() + JSON.stringify(data));
+            });
         var speechSuccess = function (result) {
             var $textarea = $('.input-box textarea');
             $textarea.val(result);
@@ -42,9 +47,8 @@
 
         $('.submit-btn').on('tap', function () {
             var value = $('.input-box textarea').val();
-            var x = parse(value);
-            console.log(x);
-            alert(x)
+            var x = process_command(value);
+            if (!x) alert("Some error occured.");
         });
 
     };
