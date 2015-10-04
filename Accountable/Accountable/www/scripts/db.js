@@ -32,10 +32,22 @@ var setup = function() {
         }
     });
 
+    pouch.get('bank', function (err, doc) {
+        if (err) {
+            pouch.put({
+                _id: 'bank',
+                collection: "accounts",
+                name: "Bank ATM",
+                type: "bank"
+            }, function () { });
+        }
+    });
+
     var income_categories = {
         "salary": "Salary",
         "pensions": "Pensions",
         "interest": "Interest",
+        "rent": "Rent",
         "pocket_money": "Pocket Money",
         "sale": "Sale",
         "other_income": "Others"
@@ -110,10 +122,22 @@ var setup = function() {
             });
         }
     }
+
+    for (id in people) {
+        if (people.hasOwnProperty(id)) {
+            put_if_not_exists({
+                _id: id,
+                collection: "people",
+                fname: people[id][0],
+                lname: people[id][1]
+            });
+        }
+    }
 };
 
-var add_data = function(data, callback) {
-    data._id = new Date().toISOString();
+var add_data = function (data, callback) {
+    if (!('_id' in data))
+        data._id = new Date().toISOString();
     pouch.put(data, function(err, doc) {
         if (err) {
             callback(err);

@@ -17,10 +17,23 @@ var handlePerson = function (data, field_name) {
     field_name = field_name || 'person';
     if (field_name in data) {
         if (!people) return;
+        orig_string = data[field_name];
         data[field_name] = getSimilar(data[field_name], people)._id;
         if (data[field_name]) return;
     }
-    data[field_name] = '';
+    var new_id = new Date().toISOString();
+    add_data({
+        _id: new_id,
+        collection: 'people',
+        fname: orig_string.split(' ')[0],
+        lname: orig_string.split(' ')[1]
+    }, function () {
+        getCollection("people", function (err, data) {
+            if (err) return;
+            people = data;
+        });
+    });
+    data[field_name] = new_id;
 };
 
 var handleItem = function (data, field_name, category_field_name) {
@@ -41,7 +54,9 @@ var handleIncomeCategory = function (data, field_name) {
     field_name = field_name || 'income_category';
     if (field_name in data) {
         if (!income_categories) return;
-        data[field_name] = getSimilar(data[field_name], income_categories)._id;
+        if (data[field_name]) {
+            data[field_name] = getSimilar(data[field_name], income_categories)._id;
+        }
         if (data[field_name]) return;
     }
     data[field_name] = 'other_income';

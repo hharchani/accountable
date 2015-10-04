@@ -8,6 +8,7 @@ var parse = function(sentence) {
     for (var i = 0; i < templates.length; i++) {
         var matches = templates[i].re.exec(sentence);
         if (matches) {
+            console.log(matches)
             var data = {};
 
             for (var key in templates[i].static) {
@@ -50,5 +51,16 @@ var test = ["Harshit gave me 100 rupees",
 function testAll() {
     for (var i in test) {
         console.log(test[i], parse(test[i]));
+    }
+}
+
+function process_command(sentence) {
+    parsed = parse(sentence);
+    console.log(parsed);
+    if (parsed) {
+        add_data(parsed, function () { });
+        return true;
+    } else {
+        return false;
     }
 }
