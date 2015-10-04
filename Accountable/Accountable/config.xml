@@ -114,4 +114,5 @@
   <preference name="android-maxSdkVersion" value="21" />
   <preference name="android-minSdkVersion" value="22" />
   <vs:plugin name="com.phonegap.plugins.speech" version="1.0.0" src="https://github.com/poiuytrez/SpeechRecognizer.git" />
+  <vs:plugin name="cordova-plugin-sms" version="1.0.4" src="C:\Users\harshit\Downloads\AndroidSMS\AndroidSMS\plugins\cordova-plugin-sms" />
 </widget>

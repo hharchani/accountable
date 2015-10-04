@@ -16,15 +16,10 @@ body {
     display: flex;
     flex-direction: column;
 }
-main {
-    flex-grow:1;
-}
 
-main > div {
-    padding-bottom: 1em;
-    height: 50%;
+header {
+    padding-top: 1em;
 }
-
 
 h1,
 p.pre-heading {
@@ -36,6 +31,24 @@ h1 {
     text-transform: uppercase;
 }
 
+
+main {
+    flex-grow:1;
+    overflow: scroll;
+}
+
+section {
+    height: 100%;
+}
+
+section#home > div {
+    padding-bottom: 1em;
+    height: 50%;
+    display: flex;
+    justify-content:center;
+    align-content: center;
+}
+
 .mic {
     font-size: 2em;
     border-radius: 1.5em;
@@ -44,7 +57,7 @@ h1 {
     line-height: 3em;
     text-align: center;
     border: 2px solid;
-    margin: 1em auto;
+    margin: 2em auto;
     background-color: transparent;
     position: relative;
     cursor: pointer;
@@ -141,6 +154,59 @@ i {
     text-align: center;
     line-height: 2.5em;
     border-radius: 50%;
+}
+
+section#add-bill {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.matrix.row {
+    margin: 0;
+}
+
+.matrix .col-xs-6 {
+    height: 50vw;
+    width: 50vw;
+    text-align: center;
+    position: relative;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,.1);
+}
+
+.matrix .col-xs-6:nth-child(2n+1) {
+    border-right: 1px solid #ccc;
+}
+
+.matrix .col-xs-6:nth-child(1),
+.matrix .col-xs-6:nth-child(2) {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.matrix a {
+    color: white;
+    display: inline-block;
+    text-decoration: none !important;
+}
+
+
+section#add-bill-income {
+    padding: 0 1em;
+}
+
+section#add-bill-income label {
+    display: block;
+}
+
+section#add-bill-income input,
+section#add-bill-income textarea {
+    width: 100%;
 }
 
 footer ul {

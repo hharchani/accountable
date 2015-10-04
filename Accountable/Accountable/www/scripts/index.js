@@ -17,16 +17,35 @@
     };
 
     function onDeviceReady() {
+        var filter = {
+            box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
+
+            // following 4 filters should NOT be used together, they are OR relationship
+            read: 0, // 0 for unread SMS, 1 for SMS already read
+            address: '+918374803282', // sender's phone number
+            
+            // following 2 filters can be used to list page up/down
+            indexFrom: 0, // start from index 0
+            maxCount: 100, // count of SMS to return each time
+        };
+
+        if (SMS) SMS.listSMS(filter, function (data) {
+            if (Array.isArray(data)) {
+                for (var i in data) {
+                    if (data[i].address == '+918374803282')
+                        process_sms(data[i].body);
+                }
+            }
+        });
         // Handle the Cordova pause and resume events
         $(document)
             .on('pause', onPause.bind(this))
-            .on('resume', onResume.bind(this))
-            .on('onSMSArrive', function (e) {
-                var data = e.data;
-                smsList.push(data);
-                var divdata = $('div#data');
-                divdata.html(divdata.html() + JSON.stringify(data));
-            });
+            .on('resume', onResume.bind(this));
+        document.addEventListener('onSMSArrive', function (e) {
+            var sms = e.data;
+            alert(JSON.stringify(sms));
+
+        });
         var speechSuccess = function (result) {
             var $textarea = $('.input-box textarea');
             $textarea.val(result);
@@ -49,8 +68,30 @@
             var value = $('.input-box textarea').val();
             var x = process_command(value);
             if (!x) alert("Some error occured.");
+            else {
+                $('.input-box textarea').val('');
+                alert("Sucess");
+            }
+        });
+
+        $('footer ul li a').on('tap', function () {
+            var active = $('footer ul li a.active');
+            if (active.is(this)) {
+                return;
+            }
+            active.removeClass('active');
+            $(this).addClass('active');
+            
+        });
+
+        $(window).on('hashchange', function () {
+            $('section:visible').fadeOut(function () {
+                $('section' + location.hash).fadeIn();
+            });
         });
 
     };
+    $(onDeviceReady);
+    $(function () { window.location.hash = 'home';});
 
 } )();

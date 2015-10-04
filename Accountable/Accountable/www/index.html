@@ -9,9 +9,9 @@
     -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
     <title>Accountable</title>
-
     <link rel="stylesheet" type="text/css" href="css/font.css" />
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.5-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
@@ -19,36 +19,101 @@
     <header>
         <p class="pre-heading">Welcome to</p>
         <h1>Accountable</h1>
+        <hr />
     </header>
     <main>
-        <div>
-            <div class="mic">
-                <i class="fa fa-microphone"></i>
+        <section id="home">
+            <div>
+                <div class="mic">
+                    <i class="fa fa-microphone"></i>
+                </div>
             </div>
-        </div>
-        <div>
-            <div class="input-box">
-                <textarea rows="2" placeholder="Where is the money?"></textarea>
-                <span class="submit-btn"><i class="fa fa-paper-plane"></i></span>
+            <div>
+                <div class="input-box">
+                    <textarea rows="2" placeholder="Where is the money?"></textarea>
+                    <span class="submit-btn"><i class="fa fa-paper-plane"></i></span>
+                </div>
             </div>
-        </div>
+        </section>
+        <section id="add-bill" style="display: none;">
+            <div class="row matrix">
+                <div class="col-xs-6">
+                    <a href="#add-bill-income">
+                        <i class="fa fa-inr"></i>
+                        <p>Income</p>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="#add-bill-expense">
+                        <i class=" fa fa-inr"></i>
+                        <p>Expense</p>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="#add-bill-transfer">
+                        <i class="fa fa-inr"></i>
+                        <p>Transfer</p>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="#add-bill-settlement">
+                        <i class="fa fa-inr"></i>
+                        <p>Settlement</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="add-bill-income"  style="display: none;">
+            <h2 class="text-center">Add Income</h2>
+            <p>
+                <label>Category</label>
+                <select class="form-control">
+                    <option value="Salary">Salary</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Interest">Interest</option>
+                </select>
+            </p>
+            <p>
+                <label>Date</label>
+                <input type="text" class="form-control"/>
+            </p>
+            <p>
+                <label>Amount</label>
+                <input type="text" class="form-control"/>
+            </p>
+            <p>
+                <label>Account</label>
+                <input type="text" class="form-control"/>
+            </p>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button class="btn btn-success form-control">Save</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-danger form-control">Reset</button>
+                </div>
+            </div>
+        </section>
+        <section id="stats" style="display: none;">
+            <h1>Stats</h1>
+        </section>
     </main>
     <footer>
         <ul>
             <li>
-                <a class="active" href="#">
+                <a class="active" href="#home">
                     <i class="fa fa-home"></i>
                     <p>Home</p>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#add-bill">
                     <i class="fa fa-plus"></i>
                     <p>Add Bills</p>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#stats">
                     <i class="fa fa-bar-chart"></i>
                     <p>Stats</p>
                 </a>
