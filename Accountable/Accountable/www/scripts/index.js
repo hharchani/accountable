@@ -5,30 +5,31 @@
 (function () {
     "use strict";
 
-    document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
+    $(document).on('deviceready', onDeviceReady.bind(this));
 
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
-        document.addEventListener( 'pause', onPause.bind( this ), false );
-        document.addEventListener( 'resume', onResume.bind( this ), false );
+        $(document)
+            .on( 'pause', onPause.bind( this ))
+            .on( 'resume', onResume.bind( this ));
         
-        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
-
-        var s = function (result) {
-            alert(result);
-            console.log(result);
+        var speechSuccess = function (result) {
+            var $textarea = $('.input-box textarea');
+            $textarea.val(result);
         };
-        var f = function (errorMessage) {
+
+        var speechFailure = function (errorMessage) {
             console.log("Error message: " + errorMessage);
         };
 
         var recognizeSpeech = function () {
-            var maxMatches = 5;
+            var maxMatches = 1;
             var promptString = "Speak now"; // optional
-            var language = "en-US";                     // optional
-            window.plugins.speechrecognizer.startRecognize(s, f, maxMatches, promptString, language);
+            var language = "en-US";      // optional
+            window.plugins.speechrecognizer.startRecognize(speechSuccess, speechFailure, maxMatches, promptString, language);
         };
-        document.querySelector('button').addEventListener('click', recognizeSpeech);
+
+        $('.mic').on('tap', recognizeSpeech);
 
     };
 

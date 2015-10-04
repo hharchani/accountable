@@ -25,12 +25,4 @@
     
   </platform>
   
-  <platform name="wp8">
-    <source-file src="SpeechRecognizer.cs" target-dir="src/com/phonegap/plugins/speech" />
-
-    <feature name="SpeechRecognizer" >
-      <param name="wp-package" value="SpeechRecognizer"/>
-    </feature>
-  </platform>
-  
 </plugin>
