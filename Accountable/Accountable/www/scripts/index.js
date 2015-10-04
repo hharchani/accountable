@@ -28,7 +28,7 @@
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-        var SMS = false;
+
         if (SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
