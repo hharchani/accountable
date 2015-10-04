@@ -65,34 +65,32 @@
         </section>
         <section id="add-bill-income"  style="display: none;">
             <h2 class="text-center">Add Income</h2>
-            <p>
-                <label>Category</label>
-                <select class="form-control">
-                    <option value="Salary">Salary</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Interest">Interest</option>
-                </select>
-            </p>
-            <p>
-                <label>Date</label>
-                <input type="text" class="form-control"/>
-            </p>
-            <p>
-                <label>Amount</label>
-                <input type="text" class="form-control"/>
-            </p>
-            <p>
-                <label>Account</label>
-                <input type="text" class="form-control"/>
-            </p>
-            <div class="row">
-                <div class="col-xs-6">
-                    <button class="btn btn-success form-control">Save</button>
+            <form>
+                <p>
+                    <label>Category</label>
+                    <select name="cat" class="cat form-control"></select>
+                </p>
+                <p>
+                    <label>Date</label>
+                    <input type="date" name="date" placeholder="YYYY-MM-DD" class="form-control" />
+                </p>
+                <p>
+                    <label>Amount</label>
+                    <input type="number" name="amount" class="form-control" />
+                </p>
+                <p>
+                    <label>Account</label>
+                    <select name="account" class="account form-control"></select>
+                </p>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button type="submit" class="btn btn-success form-control">Save</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="reset" class="btn btn-danger form-control">Reset</button>
+                    </div>
                 </div>
-                <div class="col-xs-6">
-                    <button class="btn btn-danger form-control">Reset</button>
-                </div>
-            </div>
+            </form>
         </section>
         <section id="stats1" style="display: none;">
             <h1>Daily</h1>

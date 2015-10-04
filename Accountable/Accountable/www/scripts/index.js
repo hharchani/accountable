@@ -28,7 +28,7 @@
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-
+        
         if (SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
@@ -86,10 +86,47 @@
 
         $(window).on('hashchange', function () {
             $('section:visible').fadeOut(function () {
-                $('section' + location.hash).fadeIn();
+                $('section' + location.hash).trigger('shown').fadeIn();
             });
         });
 
+        // Income form
+        $('#add-bill-income').on('shown', function () {
+            var form = $('#add-bill-income form')[0];
+            form.date.value = new Date().toLocaleDateString();
+        });
+        getCollection('income_categories', function (err, cat) {
+            if (err) {
+                alert("Some error occoured");
+                throw err;
+            }
+            $.each(cat, function (i, c) {
+                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-income select.cat');
+            });
+        });
+
+        getCollection('accounts', function (err, acc) {
+            if (err) {
+                alert("Some error occoured");
+                throw err;
+            }
+            $.each(acc, function (i, c) {
+                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-income select.account');
+            });
+        });
+
+        $('#add-bill-income form').on('submit', function (e) {
+            e.preventDefault();
+            add_data({
+                collection: "income",
+                category: this.cat.value,
+                date: (new Date(this.date.value)).toISOString(),
+                amount: this.amount.value,
+                account: this.amount.value,
+                notes: ""
+            }, function (e, d) { if (e) throw e; console.log(d) });
+            return false;
+        });
     };
     $(onDeviceReady);
     $(function () { window.location.hash = 'home';});
