@@ -17,6 +17,7 @@
     };
 
     function onDeviceReady() {
+        
         var filter = {
             box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
 
@@ -28,7 +29,7 @@
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-        var SMS = false;
+        
         if (SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
@@ -78,13 +79,43 @@
             }
         };
 
-        var refreshList = function ()
+        var addToSettleList = function (error, data) {
+            if (!error) {
+                $('.list-group').html('<div class="row"> <div class="col-xs-6">Person</div> <div class="col-xs-6">Amount</div>')
+                for (var i in data) {
+                    $('.list-group').append(
+                    '<div class="row"> <div class="col-xs-6">' + data[i].key + '</div> <div class="col-xs-6">' + data[i].value + '</div> </div>'
+                    );
+                }
+            }
+        };
+
+        var addToIncList = function (error, data) {
+            if (!error) {
+                $('.list-group').html('<div class="row"> <div class="col-xs-4">Account</div> <div class="col-xs-2">Amount</div> <div class="col-xs-6">Category</div></div>')
+                for (var i in data) {
+                    $('.list-group').append(
+                    '<div class="row"> <div class="col-xs-4">' + data[i].account + '</div> <div class="col-xs-2">' + data[i].amount + '</div> <div class="col-xs-6">' + data[i].category+ '</div></div>'
+                    );
+                }
+            }
+        };
+
+        var refreshList = function (val)
         {
-            getCollection('expenses', addToList);
+            if (val == 'expenses')
+                getCollection(val, addToList);
+            if (val == 'settle')
+                getSettlement(addToSettleList);
+            if (val == 'income')
+                getCollection(val, addToIncList);
         }
 
-        $('.listBtn').on('click', refreshList);
-        
+        $('.listBtn').on('click', function () { refreshList('expenses')});
+        $('.settleBtn').on('click', function () { refreshList('settle') });
+        $('.incBtn').on('click', function () { refreshList('income') });
+
+
         $('.submit-btn').on('tap', function () {
             var value = $('.input-box textarea').val();
             var x = process_command(value);
@@ -155,6 +186,7 @@
             });
             return false;
         });
+    };
 
 
         // Expense form
