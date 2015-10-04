@@ -1,6 +1,6 @@
 ﻿// For an introduction to the Blank template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkID=397704
-// To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints, 
+// To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints,
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
@@ -23,12 +23,12 @@
             // following 4 filters should NOT be used together, they are OR relationship
             read: 0, // 0 for unread SMS, 1 for SMS already read
             address: '+918374803282', // sender's phone number
-            
+
             // following 2 filters can be used to list page up/down
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-        
+        var SMS = false;
         if (SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
@@ -81,7 +81,7 @@
             }
             active.removeClass('active');
             $(this).addClass('active');
-            
+
         });
 
         $(window).on('hashchange', function () {

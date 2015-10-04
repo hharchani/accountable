@@ -178,7 +178,7 @@ var getExpenseDateWise = function(fromDate, toDate, callback) {
                 return;
             }
             var id_date = new Date(Date.parse(doc.date)).setHours(0, 0, 0, 0);
-            emit(id_date, doc.amount || 0);
+            emit(id_date, parseFloat(doc.amount || 0));
         },
         reduce: "_sum"
     }, {

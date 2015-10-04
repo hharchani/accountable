@@ -1,14 +1,14 @@
 var lineChart = function(){
 	var ctx = document.getElementById("myChart").getContext("2d");
 	var now = new Date()
-	var prev = new Date().setHours(0,0,0,0);
+	var prev = new Date(new Date().setHours(0,0,0,0));
 	prev.setMonth(prev.getMonth()-1)
-	var getExpenseDateWise(prev, now,
+	var vals = []
+	var labls = []
+	getExpenseDateWise(prev, now,
 		function(err, d) {
-			var vals = []
-			var labls = []
-			for (i in d){
-				labls.push(d[i].key])
+			for (i in d) {
+				labls.push(d[i].key)
 				vals.push(d[i])
 			}
 		});
@@ -21,21 +21,22 @@ var lineChart = function(){
 	    ]
 	};
 
-	var myLineChart = new Chart(ctx).Line(data, {});
+	var myLineChart = new Chart(ctx).Line(data1, {});
 };
 
 var pieChart = function () {
 	var ctx2 = document.getElementById("myChart2").getContext("2d");
 
 	var data2 = []
-	var getExpenseCategoryWise(
-	function (err, d) {
-		for (i in d){
-		data2.push({'value' : d[i].value,
-					'label' : d[i].key
-				});
+	getExpenseCategoryWise(
+		function (err, d) {
+			for (i in d){
+			data2.push({'value' : d[i].value,
+						'label' : d[i].key
+					});
+			}
 	});
-	var myDoughnutChart = new Chart(ctx2).Doughnut(data2, {}});
+	var myDoughnutChart = new Chart(ctx2).Doughnut(data2, {});
 };
 
 $('#stats1').on('shown', lineChart);
