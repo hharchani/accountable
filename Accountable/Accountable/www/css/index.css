@@ -34,7 +34,6 @@ h1 {
 
 main {
     flex-grow:1;
-    overflow: scroll;
 }
 
 section {
@@ -46,7 +45,7 @@ section#home > div {
     height: 50%;
     display: flex;
     justify-content:center;
-    align-content: center;
+    align-items: center;
 }
 
 .mic {
@@ -63,7 +62,7 @@ section#home > div {
     cursor: pointer;
     user-select: none;
     color: #77F2D1;
-    box-shadow: 0 2px 0px 3px #57C2A1;
+    box-shadow: 0 2px 0px 3px #57C2A1;8
 }
 
 .mic:active {
@@ -164,12 +163,18 @@ section#add-bill {
 }
 
 .matrix.row {
-    margin: 0;
+    margin: auto;
+}
+
+.matrix {
+    max-height: 400px;
+    max-width: 400px;
 }
 
 .matrix .col-xs-6 {
-    height: 50vw;
-    width: 50vw;
+    height: 45vw;
+    max-height: 200px;
+    max-width: 200px;
     text-align: center;
     position: relative;
     font-size: 2em;
@@ -179,15 +184,9 @@ section#add-bill {
     background-color: rgba(255,255,255,.1);
 }
 
-.matrix .col-xs-6:nth-child(2n+1) {
-    border-right: 1px solid #ccc;
+.matrix .col-xs-6 {
+    border: 1px solid #ccc;
 }
-
-.matrix .col-xs-6:nth-child(1),
-.matrix .col-xs-6:nth-child(2) {
-    border-bottom: 1px solid #ccc;
-}
-
 
 .matrix a {
     color: white;
@@ -207,6 +206,24 @@ section#add-bill-income label {
 section#add-bill-income input,
 section#add-bill-income textarea {
     width: 100%;
+}
+
+section#add-bill-expense {
+    padding: 0 1em;
+}
+
+section#add-bill-expense label {
+    display: block;
+}
+
+section#add-bill-expense input,
+section#add-bill-expense textarea {
+    width: 100%;
+}
+section#add-bill-income .col-xs-6,
+section#add-bill-expense .col-xs-6 {
+    overflow: hidden;
+    transition: width .5s;
 }
 
 footer ul {

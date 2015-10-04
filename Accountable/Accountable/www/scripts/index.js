@@ -28,7 +28,7 @@
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-
+        var SMS = false;
         if (SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
@@ -89,7 +89,7 @@
             var value = $('.input-box textarea').val();
             var x = process_command(value);
             if (!x) {
-                alert("Some error occured.");
+                alert("Sorry I didn't catch that. Could you rephrase it?");
             }
             else {
                 $('.input-box textarea').val('');
@@ -145,12 +145,60 @@
                 category: this.cat.value,
                 date: (new Date(this.date.value)).toISOString(),
                 amount: this.amount.value,
-                account: this.amount.value,
+                account: this.account.value,
                 notes: ""
-            }, function (e, d) { if (e) throw e; console.log(d) });
+            }, function (e, d) {
+                if (e) throw e;
+                alert('Saved');
+                this.reset();
+
+            });
+            return false;
+        });
+
+
+        // Expense form
+        $('#add-bill-expense').on('shown', function () {
+            var form = $('#add-bill-expense form')[0];
+            form.date.value = new Date().toLocaleDateString();
+        });
+        getCollection('categories', function (err, cat) {
+            if (err) {
+                alert("Some error occoured");
+                throw err;
+            }
+            $.each(cat, function (i, c) {
+                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.cat');
+            });
+        });
+
+        getCollection('accounts', function (err, acc) {
+            if (err) {
+                alert("Some error occoured");
+                throw err;
+            }
+            $.each(acc, function (i, c) {
+                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.account');
+            });
+        });
+
+        $('#add-bill-expense form').on('submit', function (e) {
+            e.preventDefault();
+            add_data({
+                collection: "expenses",
+                category: this.cat.value,
+                item : this.item.value,
+                date: (new Date(this.date.value)).toISOString(),
+                amount: this.amount.value,
+                account: this.account.value,
+                notes: ""
+            }, function (e, d) {
+                if (e) throw e;
+                alert('Saved');
+                this.reset();
+            }.bind(this));
             return false;
         });
     };
-    $(function () { window.location.hash = 'home';});
-
+    onDeviceReady();
 } )();
