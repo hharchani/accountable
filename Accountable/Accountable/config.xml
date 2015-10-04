@@ -113,4 +113,5 @@
   <preference name="android-targetSdkVersion" value="21" />
   <preference name="android-maxSdkVersion" value="21" />
   <preference name="android-minSdkVersion" value="22" />
+  <vs:plugin name="com.phonegap.plugins.speech" version="1.0.0" src="https://github.com/poiuytrez/SpeechRecognizer.git" />
 </widget>

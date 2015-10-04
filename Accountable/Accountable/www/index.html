@@ -10,16 +10,52 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
     <title>Accountable</title>
 
-    <!-- Accountable references -->
-    <link href="css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/font.css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 <body>
-    <p>Hello, your application is ready!</p>
-
-    <!-- Cordova reference, this is added to your app when it's built. -->
-    <script src="cordova.js"></script>
-    <script src="scripts/platformOverrides.js"></script>
-
-    <script src="scripts/index.js"></script>
+    <header>
+        <p class="pre-heading">Welcome to</p>
+        <h1>Accountable</h1>
+    </header>
+    <main>
+        <div>
+            <div class="mic">
+                <i class="fa fa-microphone"></i>
+            </div>
+        </div>
+        <div>
+            <div class="input-box">
+                <textarea rows="2" placeholder="Where is the money?"></textarea>
+                <span><i class="fa fa-paper-plane"></i></span>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a class="active" href="#">
+                    <i class="fa fa-home"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-plus"></i>
+                    <p>Add Bills</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-bar-chart"></i>
+                    <p>Stats</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+<!--<script src="cordova.js"></script> -->
+    <script type="text/javascript" src="scripts/jquery-2.1.4.min.js"></script>
 </body>
 </html>

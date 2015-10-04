@@ -13,6 +13,23 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
         
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
+
+        var s = function (result) {
+            alert(result);
+            console.log(result);
+        };
+        var f = function (errorMessage) {
+            console.log("Error message: " + errorMessage);
+        };
+
+        var recognizeSpeech = function () {
+            var maxMatches = 5;
+            var promptString = "Speak now"; // optional
+            var language = "en-US";                     // optional
+            window.plugins.speechrecognizer.startRecognize(s, f, maxMatches, promptString, language);
+        };
+        document.querySelector('button').addEventListener('click', recognizeSpeech);
+
     };
 
     function onPause() {
