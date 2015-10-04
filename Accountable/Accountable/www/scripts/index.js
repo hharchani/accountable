@@ -47,6 +47,24 @@
             alert(x)
         });
 
+        $('footer ul li a').on('tap', function () {
+            var active = $('footer ul li a.active');
+            if (active.is(this)) {
+                return;
+            }
+            active.removeClass('active');
+            $(this).addClass('active');
+            
+        });
+
+        $(window).on('hashchange', function () {
+            $('section:visible').fadeOut(function () {
+                $('section' + location.hash).fadeIn();
+            });
+        });
+
     };
+    $(onDeviceReady);
+    $(function () { window.location.hash = 'home';});
 
 } )();
