@@ -64,10 +64,33 @@
 
         $('.mic').on('tap', recognizeSpeech);
 
+        
+        var addToList = function (error, data) {
+            if (!error)
+            {
+                $('.list-group').html('<div class="row"> <div class="col-xs-4">Account</div> <div class="col-xs-2">Amount</div> <div class="col-xs-6">Category/Item</div></div>')
+                for (var i in data)
+                {
+                    $('.list-group').append(
+                    '<div class="row"> <div class="col-xs-4">' + data[i].account + '</div> <div class="col-xs-2">' + data[i].amount + '</div> <div class="col-xs-6">' + data[i].category + '/' + data[i].item + '</div></div>'
+                    );
+                }
+            }
+        };
+
+        var refreshList = function ()
+        {
+            getCollection('expenses', addToList);
+        }
+
+        $('.listBtn').on('click', refreshList);
+        
         $('.submit-btn').on('tap', function () {
             var value = $('.input-box textarea').val();
             var x = process_command(value);
-            if (!x) alert("Some error occured.");
+            if (!x) {
+                alert("Some error occured.");
+            }
             else {
                 $('.input-box textarea').val('');
                 alert("Sucess");
@@ -91,7 +114,6 @@
         });
 
     };
-    $(onDeviceReady);
     $(function () { window.location.hash = 'home';});
 
 } )();
