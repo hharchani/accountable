@@ -190,8 +190,54 @@ var getExpenseDateWise = function(fromDate, toDate, callback) {
     }, function (err, response) {
         if (err) {
             callback(err);
+        } else {
+            callback(false, response.rows);
         }
-        callback(false, response.rows);
+    });
+};
+
+var getExpenseCategoryWise = function(callback) {
+    pouch.query({
+        map: function(doc) {
+            if (doc.collection != "expenses") {
+                return;
+            }
+            emit(doc.category, parseFloat(doc.amount) || 0);
+        },
+        reduce: "_sum"
+    }, {
+        reduce: true,
+        group: true,
+        group_level: 1
+    }, function (err, response) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(false, response.rows);
+        }
+    });
+};
+
+var getSettlement = function(callback) {
+    pouch.query({
+        map: function(doc) {
+            if (doc.collection != "settlements") {
+                return;
+            }
+            var IOwe = doc.type == 'gave' ? -1 : 1;
+            emit(doc.person, IOwe * (parseFloat(doc.amount) || 0));
+        },
+        reduce: "_sum"
+    }, {
+        reduce: true,
+        group: true,
+        group_level: 1
+    }, function (err, response) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(false, response.rows);
+        }
     });
 };
 

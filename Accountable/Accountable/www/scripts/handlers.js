@@ -18,6 +18,7 @@ var handlePerson = function (data, field_name) {
     if (field_name in data) {
         if (!people) return;
         orig_string = data[field_name];
+        console.log(orig_string);
         data[field_name] = getSimilar(data[field_name], people)._id;
         if (data[field_name]) return;
     }
@@ -62,6 +63,15 @@ var handleIncomeCategory = function (data, field_name) {
     data[field_name] = 'other_income';
 };
 
+var handleAmount = function(data, field_name) {
+    field_name = field_name || 'amount';
+    if (field_name in data) {
+        data[field_name]  = parseFloat(data[field_name].toString().replace(',', ''));
+        if (data[field_name]) return;
+    }
+    data[field_name] = 0;
+};
+
 var handlers = {
     "settlements": {
         "account": handleAccount,
@@ -75,13 +85,15 @@ var handlers = {
         "to": function(data) {
             handleAccount(data, "to");
         },
-        "date": handleDate
+        "date": handleDate,
+        "amount": handleAmount
     },
     "expenses": {
         "category": function(){},
         "item": handleItem,
         "date": handleDate,
-        "account": handleAccount
+        "account": handleAccount,
+        "amount": handleAmount
     },
     "income": {
         "category": function(data) {
