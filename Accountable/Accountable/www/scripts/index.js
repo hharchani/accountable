@@ -5,7 +5,7 @@
 (function () {
     "use strict";
 
-    $(document).on('deviceready', onDeviceReady.bind(this));
+    $(document).on('ready', onDeviceReady.bind(this));
 
 
     function onPause() {
@@ -17,7 +17,7 @@
     };
 
     function onDeviceReady() {
-        
+
         var filter = {
             box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
 
@@ -29,8 +29,8 @@
             indexFrom: 0, // start from index 0
             maxCount: 100, // count of SMS to return each time
         };
-        
-        if (SMS) SMS.listSMS(filter, function (data) {
+
+        if (window.SMS) SMS.listSMS(filter, function (data) {
             if (Array.isArray(data)) {
                 for (var i in data) {
                     if (data[i].address == '+918374803282')
@@ -65,7 +65,7 @@
 
         $('.mic').on('tap', recognizeSpeech);
 
-        
+
         var addToList = function (error, data) {
             if (!error)
             {
@@ -190,47 +190,45 @@
 
 
         // Expense form
-        $('#add-bill-expense').on('shown', function () {
-            var form = $('#add-bill-expense form')[0];
-            form.date.value = new Date().toLocaleDateString();
+    $('#add-bill-expense').on('shown', function () {
+        var form = $('#add-bill-expense form')[0];
+        form.date.value = new Date().toLocaleDateString();
+    });
+    getCollection('categories', function (err, cat) {
+        if (err) {
+            alert("Some error occoured");
+            throw err;
+        }
+        $.each(cat, function (i, c) {
+            $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.cat');
         });
-        getCollection('categories', function (err, cat) {
-            if (err) {
-                alert("Some error occoured");
-                throw err;
-            }
-            $.each(cat, function (i, c) {
-                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.cat');
-            });
-        });
+    });
 
-        getCollection('accounts', function (err, acc) {
-            if (err) {
-                alert("Some error occoured");
-                throw err;
-            }
-            $.each(acc, function (i, c) {
-                $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.account');
-            });
+    getCollection('accounts', function (err, acc) {
+        if (err) {
+            alert("Some error occoured");
+            throw err;
+        }
+        $.each(acc, function (i, c) {
+            $('<option>').val(c._id).text(c.name).appendTo('#add-bill-expense select.account');
         });
+    });
 
-        $('#add-bill-expense form').on('submit', function (e) {
-            e.preventDefault();
-            add_data({
-                collection: "expenses",
-                category: this.cat.value,
-                item : this.item.value,
-                date: (new Date(this.date.value)).toISOString(),
-                amount: this.amount.value,
-                account: this.account.value,
-                notes: ""
-            }, function (e, d) {
-                if (e) throw e;
-                alert('Saved');
-                this.reset();
-            }.bind(this));
-            return false;
-        });
-    };
-    onDeviceReady();
+    $('#add-bill-expense form').on('submit', function (e) {
+        e.preventDefault();
+        add_data({
+            collection: "expenses",
+            category: this.cat.value,
+            item : this.item.value,
+            date: (new Date(this.date.value)).toISOString(),
+            amount: this.amount.value,
+            account: this.account.value,
+            notes: ""
+        }, function (e, d) {
+            if (e) throw e;
+            alert('Saved');
+            this.reset();
+        }.bind(this));
+        return false;
+    });
 } )();
